@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="pro_manage_sys:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>pro_manage_sys</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="pro_manage_sys-0.0.1-SNAPSHOT.war">
+      <element id="artifact" artifact-name="pro_manage_sys:war exploded" />
+    </root>
+  </artifact>
+</component>
