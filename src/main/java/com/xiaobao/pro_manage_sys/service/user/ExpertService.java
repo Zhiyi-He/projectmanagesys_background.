@@ -1,7 +1,9 @@
 package com.xiaobao.pro_manage_sys.service.user;
 
 
-public interface UserService<T> {
+import com.xiaobao.pro_manage_sys.entity.user.Expert;
+
+public interface ExpertService {
 
     /**
      * 通过username和password查询用户信息--登录
@@ -9,5 +11,5 @@ public interface UserService<T> {
      * @param password
      * @return 当前登录用户
      */
-    public T findByUsernameAndPassword(String username, String password);
+    public Expert findByUsernameAndPassword(String username, String password);
 }

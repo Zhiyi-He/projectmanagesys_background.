@@ -1,62 +1,77 @@
 package com.xiaobao.pro_manage_sys.entity.user;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Data
 @Table(name = "rec_dept")
-public class RecDept extends User{
+public class RecDept {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "rcd_id")
-    private Integer id;
-    @Column(name = "username")
-    private String username;
-    @Column(name = "password")
-    private String password;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "rcd_id")
+  private Integer id;
 
-    public RecDept() {
-    }
+  @Column(name = "username")
+  private String username;
 
-    public RecDept(String username, String password) {
-        this.username=username;
-        this.password=password;
-    }
+  @Column(name = "password")
+  private String password;
 
-    public Integer getId() {
-        return id;
-    }
+  @Column(name = "dept_name")
+  private String deptName;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "recDept", cascade = CascadeType.ALL)
+  @JsonIgnore
+  private Set<RepDept> repDepts = new HashSet<>(0);
 
-    public String getUsername() {
-        return username;
-    }
+  public RecDept() {}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+  public RecDept(String username, String password) {
+    this.username = username;
+    this.password = password;
+  }
 
-    public String getPassword() {
-        return password;
-    }
+  public Set<RepDept> getRepDepts() {
+    return repDepts;
+  }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+  public void setRepDepts(Set<RepDept> repDepts) {
+    this.repDepts = repDepts;
+  }
 
-    @Override
-    public String
-    toString() {
-        return "User{" +
-                "uId=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
+  public String getDeptName() {
+    return deptName;
+  }
+
+  public void setDeptName(String deptName) {
+    this.deptName = deptName;
+  }
+
+  public Integer getId() {
+    return id;
+  }
+
+  public void setId(Integer id) {
+    this.id = id;
+  }
+
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
 }

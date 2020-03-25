@@ -1,62 +1,64 @@
 package com.xiaobao.pro_manage_sys.entity.user;
 
-import lombok.Data;
-
 import javax.persistence.*;
 
 @Entity
-@Data
 @Table(name = "expert")
-public class Expert extends User{
+public class Expert {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "exp_id")
-    private Integer id;
-    @Column(name = "username")
-    private String username;
-    @Column(name = "password")
-    private String password;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "exp_id")
+  private Integer id;
 
-    public Expert() {
-    }
+  @Column(name = "username")
+  private String username;
 
-    public Expert(String username, String password) {
-        this.username=username;
-        this.password=password;
-    }
+  @Column(name = "password")
+  private String password;
 
-    public Integer getId() {
-        return id;
-    }
+  public Expert() {}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+  public Expert(String username, String password) {
+    this.username = username;
+    this.password = password;
+  }
 
-    public String getUsername() {
-        return username;
-    }
+  public Integer getId() {
+    return id;
+  }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
-    public String getPassword() {
-        return password;
-    }
+  public String getUsername() {
+    return username;
+  }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
-    @Override
-    public String
-    toString() {
-        return "User{" +
-                "uId=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  @Override
+  public String toString() {
+    return "User{"
+        + "uId="
+        + id
+        + ", username='"
+        + username
+        + '\''
+        + ", password='"
+        + password
+        + '\''
+        + '}';
+  }
 }

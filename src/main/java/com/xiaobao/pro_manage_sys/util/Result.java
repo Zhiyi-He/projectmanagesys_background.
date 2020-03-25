@@ -8,27 +8,29 @@ import java.util.Map;
  * 数据接口返回对象
  */
 public class Result {
-    private Object data;//响应数据
+    private Map<String,Object> data;//响应数据
     private Map<String,Object> meta;//响应提示信息
 
     public Result() {
     }
 
-    public Result(Object data, String message, Integer code) {
+
+    public Result(Map<String,Object> data,String message, Integer code) {
         Map<String,Object> meta=new HashMap<>();
         meta.put("message",message);
         meta.put("code",code);
 
-        this.data = data;
+
         this.meta = meta;
+        this.data= data;
     }
 
-    public Object getData() {
+    public Map<String,Object> getData() {
         return data;
     }
 
-    public void setData(Object data) {
-        this.data = data;
+    public void setData(Map<String,Object> data) {
+        this.data=data;
     }
 
     public Object getMeta() {

@@ -1,20 +1,28 @@
 package com.xiaobao.pro_manage_sys.service.user.impl;
 
 import com.xiaobao.pro_manage_sys.entity.user.RepDept;
-import com.xiaobao.pro_manage_sys.repository.user.UserRepository;
-import com.xiaobao.pro_manage_sys.service.user.UserService;
+import com.xiaobao.pro_manage_sys.repository.user.RepDeptRepository;
+import com.xiaobao.pro_manage_sys.service.user.RepDeptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class RepDeptServiceImpl implements UserService<RepDept> {
+public class RepDeptServiceImpl implements RepDeptService {
 
-    @Autowired
-    UserRepository<RepDept> repDeptUserRepository;
+  @Autowired RepDeptRepository repDeptRepository;
 
+  @Override
+  public RepDept findById(Integer id) {
+    return repDeptRepository.findById(id).orElse(null);
+  }
 
-    @Override
-    public RepDept findByUsernameAndPassword(String username, String password) {
-        return repDeptUserRepository.findByUsernameAndPassword(username,password);
-    }
+  @Override
+  public RepDept save(RepDept repDept) {
+    return repDeptRepository.save(repDept);
+  }
+
+  @Override
+  public RepDept findByUsernameAndPassword(String username, String password) {
+    return repDeptRepository.findByUsernameAndPassword(username, password);
+  }
 }

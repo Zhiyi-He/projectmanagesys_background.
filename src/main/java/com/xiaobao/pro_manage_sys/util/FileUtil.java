@@ -29,7 +29,6 @@ public class FileUtil {
                     os.write(buffer,0,i);
                     i = bis.read(buffer);
                 }
-                os.flush();
 
                 return true;
             } catch (Exception e) {
