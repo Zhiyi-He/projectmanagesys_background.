@@ -52,13 +52,13 @@ public class LoginController {
     // 从请求头中获取token值
     String token = request.getHeader("x-token");
 
-    Object user = redisTemplate.opsForValue().get(token);
+    Object userVo = redisTemplate.opsForValue().get(token);
 
-    if (user != null) {
-      data.put("user", user);
+    if (userVo != null) {
+      data.put("userVo", userVo);
       return new Result(data, "获取登录用户成功", 20000);
     } else {
-      return new Result(data, "获取登录用户失败", 40000);
+      return new Result(data, "请登录", 40000);
     }
   }
 

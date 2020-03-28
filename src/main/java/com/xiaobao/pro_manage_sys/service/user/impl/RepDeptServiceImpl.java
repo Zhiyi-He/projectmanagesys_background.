@@ -6,6 +6,8 @@ import com.xiaobao.pro_manage_sys.service.user.RepDeptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class RepDeptServiceImpl implements RepDeptService {
 
@@ -14,6 +16,12 @@ public class RepDeptServiceImpl implements RepDeptService {
   @Override
   public RepDept findById(Integer id) {
     return repDeptRepository.findById(id).orElse(null);
+  }
+
+  @Override
+  public Boolean deleteInBatch(List<RepDept> repDepts) {
+    repDeptRepository.deleteInBatch(repDepts);
+    return true;
   }
 
   @Override

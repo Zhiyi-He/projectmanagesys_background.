@@ -7,11 +7,18 @@ import com.xiaobao.pro_manage_sys.service.ProjectService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
 
   @Resource ProjectRepository projectRepository;
+
+  @Override
+  public Boolean deleteById(Integer id) {
+    projectRepository.deleteById(id);
+    return true;
+  }
 
   @Override
   public Project save(Project project) {
@@ -24,7 +31,12 @@ public class ProjectServiceImpl implements ProjectService {
   }
 
   @Override
-  public Project findByProStatusAndApplicant(Integer proStatus, Applicant applicant) {
+  public List<Project> findByProStatusAndApplicant(Integer proStatus, Applicant applicant) {
     return projectRepository.findByProStatusAndApplicant(proStatus, applicant);
+  }
+
+  @Override
+  public List<Project> saveAll(List<Project> projects) {
+    return projectRepository.saveAll(projects);
   }
 }

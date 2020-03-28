@@ -16,4 +16,8 @@ public interface RecDeptService {
   public RecDept findByUsernameAndPassword(String username, String password);
 
   List<RecDept> findAll();
+
+  RecDept save(RecDept user);
+
+  RecDept findById(Integer rcdId);
 }

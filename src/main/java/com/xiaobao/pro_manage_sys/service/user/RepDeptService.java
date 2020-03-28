@@ -2,6 +2,8 @@ package com.xiaobao.pro_manage_sys.service.user;
 
 import com.xiaobao.pro_manage_sys.entity.user.RepDept;
 
+import java.util.List;
+
 public interface RepDeptService {
 
   /**
@@ -16,4 +18,6 @@ public interface RepDeptService {
   RepDept save(RepDept repDept);
 
   RepDept findById(Integer id);
+
+  Boolean deleteInBatch(List<RepDept> repDepts);
 }

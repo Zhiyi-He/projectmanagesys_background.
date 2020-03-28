@@ -22,4 +22,14 @@ public class RecDeptServiceImpl implements RecDeptService {
   public List<RecDept> findAll() {
     return recDeptUserRepository.findAll();
   }
+
+  @Override
+  public RecDept findById(Integer rcdId) {
+    return recDeptUserRepository.findById(rcdId).orElse(null);
+  }
+
+  @Override
+  public RecDept save(RecDept user) {
+    return recDeptUserRepository.save(user);
+  }
 }

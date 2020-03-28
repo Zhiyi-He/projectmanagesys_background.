@@ -50,6 +50,9 @@ public class RepDept {
   @Column(name = "deptType")
   private Integer deptType;
 
+  @Column(name = "rpd_status")
+  private Integer rpdStatus;
+
   @OneToMany(
       fetch = FetchType.LAZY,
       mappedBy = "repDept",
@@ -66,7 +69,7 @@ public class RepDept {
   @JsonManagedReference
   private List<Principal> principals = new ArrayList<>(0);
 
-  @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+  @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, targetEntity = RecDept.class)
   @JoinColumn(name = "rcd_id")
   private RecDept recDept;
 
@@ -75,6 +78,14 @@ public class RepDept {
   public RepDept(String username, String password) {
     this.username = username;
     this.password = password;
+  }
+
+  public Integer getRpdStatus() {
+    return rpdStatus;
+  }
+
+  public void setRpdStatus(Integer rpdStatus) {
+    this.rpdStatus = rpdStatus;
   }
 
   public List<Principal> getPrincipals() {

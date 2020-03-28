@@ -65,3 +65,4 @@ logging:
     com.xiaobao: debug
   file:
     path: F:/logFile/com/xiaobao/proManageSys
+
