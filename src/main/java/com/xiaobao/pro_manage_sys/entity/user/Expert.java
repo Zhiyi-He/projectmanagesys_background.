@@ -17,11 +17,55 @@ public class Expert {
   @Column(name = "password")
   private String password;
 
+  @Column(name = "exp_name")
+  private String name;
+
+  @Column(name = "id_card")
+  private String idCard;
+
+  @Column(name = "tel")
+  private String tel;
+
+  @Column(name = "email")
+  private String email;
+
   public Expert() {}
 
   public Expert(String username, String password) {
     this.username = username;
     this.password = password;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public String getIdCard() {
+    return idCard;
+  }
+
+  public void setIdCard(String idCard) {
+    this.idCard = idCard;
+  }
+
+  public String getTel() {
+    return tel;
+  }
+
+  public void setTel(String tel) {
+    this.tel = tel;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
   }
 
   public Integer getId() {

@@ -20,4 +20,6 @@ public interface RecDeptService {
   RecDept save(RecDept user);
 
   RecDept findById(Integer rcdId);
+
+  Boolean deleteInBatch(List<RecDept> recDepts);
 }

@@ -6,9 +6,7 @@ import com.xiaobao.pro_manage_sys.entity.TechDept;
 
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "rec_dept")
@@ -27,6 +25,9 @@ public class RecDept {
 
   @Column(name = "dept_name")
   private String deptName;
+
+  @Column(name = "dept_code")
+  private String deptCode;
 
   @Column(name = "tel")
   private String tel;
@@ -52,7 +53,7 @@ public class RecDept {
       cascade = CascadeType.ALL,
       targetEntity = RepDept.class)
   @JsonIgnore
-  private Set<RepDept> repDepts = new HashSet<>(0);
+  private List<RepDept> repDepts = new ArrayList<>(0);
 
   @OneToMany(
       fetch = FetchType.LAZY,
@@ -67,6 +68,14 @@ public class RecDept {
   public RecDept(String username, String password) {
     this.username = username;
     this.password = password;
+  }
+
+  public String getDeptCode() {
+    return deptCode;
+  }
+
+  public void setDeptCode(String deptCode) {
+    this.deptCode = deptCode;
   }
 
   public List<TechDept> getTechDepts() {
@@ -125,11 +134,11 @@ public class RecDept {
     this.address = address;
   }
 
-  public Set<RepDept> getRepDepts() {
+  public List<RepDept> getRepDepts() {
     return repDepts;
   }
 
-  public void setRepDepts(Set<RepDept> repDepts) {
+  public void setRepDepts(List<RepDept> repDepts) {
     this.repDepts = repDepts;
   }
 

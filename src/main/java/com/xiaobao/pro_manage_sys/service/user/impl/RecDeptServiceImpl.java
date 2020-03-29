@@ -29,6 +29,12 @@ public class RecDeptServiceImpl implements RecDeptService {
   }
 
   @Override
+  public Boolean deleteInBatch(List<RecDept> recDepts) {
+    recDeptUserRepository.deleteInBatch(recDepts);
+    return true;
+  }
+
+  @Override
   public RecDept save(RecDept user) {
     return recDeptUserRepository.save(user);
   }

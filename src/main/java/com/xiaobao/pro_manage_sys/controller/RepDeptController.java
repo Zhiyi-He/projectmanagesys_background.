@@ -59,13 +59,12 @@ public class RepDeptController {
   }
 
   @PostMapping("/repDept")
-  public Result addApplicant(@RequestBody RepDept repDept) {
+  public Result addRepDept(@RequestBody RepDept repDept) {
     data = new HashMap<>();
 
     // 保存申报人账号信息
     repDept.setUsername((int) ((Math.random() * 9 + 1) * 100000) + "");
     repDept.setPassword("123456");
-    repDept.setProNum(0);
     RepDept addUser = repDeptService.save(repDept);
 
     if (addUser != null) {
@@ -73,6 +72,19 @@ public class RepDeptController {
       return new Result(data, "添加申报单位成功", 20000);
     } else {
       return new Result(data, "添加申报单位失败", 40000);
+    }
+  }
+
+  @GetMapping("/repDepts/{status}")
+  public Result getRepDeptsByRpdStatus(@PathVariable Integer status) {
+    data = new HashMap<>();
+
+    List<RepDept> repDepts = repDeptService.findByRpdStatus(status);
+    if (repDepts != null) {
+      data.put("repDepts", repDepts);
+      return new Result(data, "获取待审核申报单位成功", 20000);
+    } else {
+      return new Result(data, "获取待审核申报单位失败", 40000);
     }
   }
 
@@ -89,17 +101,17 @@ public class RepDeptController {
     }
   }
 
-  @PutMapping("/rpdInfo")
-  public Result updateRpdInfo(@RequestBody RepDept repDept) {
+  @PutMapping("/repDept")
+  public Result updateRepDepts(@RequestBody List<RepDept> repDepts) {
     data = new HashMap<>();
 
-    RepDept updateUser = repDeptService.save(repDept);
+    List<RepDept> updateUsers = repDeptService.saveAll(repDepts);
 
-    if (updateUser != null) {
-      data.put("updateUser", updateUser);
-      return new Result(data, "修改用户信息成功", 20000);
+    if (updateUsers.size() != 0) {
+      data.put("updateUsers", updateUsers);
+      return new Result(data, "修改申报单位成功", 20000);
     } else {
-      return new Result(data, "修改用户信息失败", 40000);
+      return new Result(data, "修改申报单位失败", 40000);
     }
   }
 

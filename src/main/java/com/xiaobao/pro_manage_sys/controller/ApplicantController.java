@@ -189,7 +189,8 @@ public class ApplicantController {
   }
 
   @PostMapping("/projects/{proStatus}")
-  public Result getLaterProject(@RequestBody Applicant applicant, @PathVariable Integer proStatus) {
+  public Result getProjectsByProStatus(
+      @RequestBody Applicant applicant, @PathVariable Integer proStatus) {
     data = new HashMap<>();
 
     List<Project> projects = projectService.findByProStatusAndApplicant(proStatus, applicant);

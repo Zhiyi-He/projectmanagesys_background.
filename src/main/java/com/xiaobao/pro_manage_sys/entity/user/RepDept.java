@@ -26,8 +26,8 @@ public class RepDept {
   @Column(name = "dept_name")
   private String deptName;
 
-  @Column(name = "pro_num")
-  private Integer proNum;
+  @Column(name = "dept_code")
+  private String deptCode;
 
   @Column(name = "tel")
   private String tel;
@@ -78,6 +78,14 @@ public class RepDept {
   public RepDept(String username, String password) {
     this.username = username;
     this.password = password;
+  }
+
+  public String getDeptCode() {
+    return deptCode;
+  }
+
+  public void setDeptCode(String deptCode) {
+    this.deptCode = deptCode;
   }
 
   public Integer getRpdStatus() {
@@ -158,14 +166,6 @@ public class RepDept {
 
   public void setDeptName(String deptName) {
     this.deptName = deptName;
-  }
-
-  public Integer getProNum() {
-    return proNum;
-  }
-
-  public void setProNum(Integer proNum) {
-    this.proNum = proNum;
   }
 
   public String getTel() {

@@ -20,4 +20,8 @@ public interface RepDeptService {
   RepDept findById(Integer id);
 
   Boolean deleteInBatch(List<RepDept> repDepts);
+
+  List<RepDept> findByRpdStatus(Integer status);
+
+  List<RepDept> saveAll(List<RepDept> repDepts);
 }

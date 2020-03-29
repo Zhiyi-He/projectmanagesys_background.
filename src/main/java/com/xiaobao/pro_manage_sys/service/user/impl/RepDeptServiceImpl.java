@@ -25,6 +25,16 @@ public class RepDeptServiceImpl implements RepDeptService {
   }
 
   @Override
+  public List<RepDept> saveAll(List<RepDept> repDepts) {
+    return repDeptRepository.saveAll(repDepts);
+  }
+
+  @Override
+  public List<RepDept> findByRpdStatus(Integer status) {
+    return repDeptRepository.findByRpdStatus(status);
+  }
+
+  @Override
   public RepDept save(RepDept repDept) {
     return repDeptRepository.save(repDept);
   }
