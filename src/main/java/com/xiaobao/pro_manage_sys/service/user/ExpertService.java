@@ -20,4 +20,6 @@ public interface ExpertService {
   Expert save(Expert expert);
 
   Boolean deleteInBatch(List<Expert> experts);
+
+  Expert findById(Integer id);
 }

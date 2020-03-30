@@ -9,12 +9,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProManagerServiceImpl implements ProManagerService {
 
-    @Autowired
-    UserRepository<ProManager> proManagerUserRepository;
+  @Autowired UserRepository<ProManager> proManagerUserRepository;
 
+  @Override
+  public ProManager findByUsernameAndPassword(String username, String password) {
+    return proManagerUserRepository.findByUsernameAndPassword(username, password);
+  }
 
-    @Override
-    public ProManager findByUsernameAndPassword(String username, String password) {
-        return proManagerUserRepository.findByUsernameAndPassword(username,password);
-    }
+  @Override
+  public ProManager save(ProManager user) {
+    return proManagerUserRepository.save(user);
+  }
 }

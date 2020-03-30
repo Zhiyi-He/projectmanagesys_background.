@@ -1,6 +1,5 @@
 package com.xiaobao.pro_manage_sys.controller;
 
-import com.xiaobao.pro_manage_sys.entity.user.Applicant;
 import com.xiaobao.pro_manage_sys.entity.user.RecDept;
 import com.xiaobao.pro_manage_sys.service.user.RecDeptService;
 import com.xiaobao.pro_manage_sys.util.JsonXMLUtils;
@@ -24,8 +23,8 @@ public class RecDeptController {
   public Result updatePassword(@RequestBody Map<String, Object> map) throws Exception {
     data = new HashMap<>();
 
-    Applicant oldAccount =
-        JsonXMLUtils.map2obj((Map<String, Object>) map.get("oldAccount"), Applicant.class);
+    RecDept oldAccount =
+        JsonXMLUtils.map2obj((Map<String, Object>) map.get("oldAccount"), RecDept.class);
     String newPassword = (String) map.get("newPassword");
 
     RecDept user =

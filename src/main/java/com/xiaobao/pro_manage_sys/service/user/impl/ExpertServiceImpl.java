@@ -30,6 +30,11 @@ public class ExpertServiceImpl implements ExpertService {
   }
 
   @Override
+  public Expert findById(Integer id) {
+    return expertUserRepository.findById(id).orElse(null);
+  }
+
+  @Override
   public Expert findByUsernameAndPassword(String username, String password) {
     return expertUserRepository.findByUsernameAndPassword(username, password);
   }

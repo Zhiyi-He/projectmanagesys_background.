@@ -16,4 +16,6 @@ public interface ProjectService {
   Boolean deleteById(Integer id);
 
   List<Project> saveAll(List<Project> projects);
+
+  List<Project> findByStatusAndApplicant(List<Integer> status, Applicant applicant);
 }

@@ -39,4 +39,9 @@ public class ProjectServiceImpl implements ProjectService {
   public List<Project> saveAll(List<Project> projects) {
     return projectRepository.saveAll(projects);
   }
+
+  @Override
+  public List<Project> findByStatusAndApplicant(List<Integer> status, Applicant applicant) {
+    return projectRepository.findByStatusAndApplicant(status, applicant);
+  }
 }

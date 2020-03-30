@@ -28,7 +28,7 @@ public class Project {
   @Column(name = "subject")
   private String subject;
 
-  /** 项目申报状态：0---项目更新（唯一） 1---未通过 2---打回修改 3---初级审核 4---二级审核 5---最终审核 6---已通过 */
+  /** 项目申报状态：0---项目更新（唯一） 1---未通过 2---打回修改 3---初级审核 4---二级审核 5---三级审核 6---待分配专家 7---专家评审 8---已通过 */
   @Column(name = "pro_status")
   private Integer proStatus;
 
