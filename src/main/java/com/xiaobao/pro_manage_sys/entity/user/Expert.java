@@ -1,10 +1,19 @@
 package com.xiaobao.pro_manage_sys.entity.user;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.xiaobao.pro_manage_sys.entity.Score;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "expert")
 public class Expert {
+
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "expert", cascade = CascadeType.ALL)
+  @JsonManagedReference
+  List<Score> scores = new ArrayList<>(0);
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,6 +67,14 @@ public class Expert {
   public Expert(String username, String password) {
     this.username = username;
     this.password = password;
+  }
+
+  public List<Score> getScores() {
+    return scores;
+  }
+
+  public void setScores(List<Score> scores) {
+    this.scores = scores;
   }
 
   public Integer getSex() {

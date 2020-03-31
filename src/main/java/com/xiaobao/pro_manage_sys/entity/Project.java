@@ -1,12 +1,19 @@
 package com.xiaobao.pro_manage_sys.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.xiaobao.pro_manage_sys.entity.user.Applicant;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "project")
 public class Project {
+
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "project", cascade = CascadeType.ALL)
+  @JsonIgnore
+  List<Score> scores = new ArrayList<>(0);
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +34,6 @@ public class Project {
 
   @Column(name = "subject")
   private String subject;
-
   /** 项目申报状态：0---项目更新（唯一） 1---未通过 2---打回修改 3---初级审核 4---二级审核 5---三级审核 6---待分配专家 7---专家评审 8---已通过 */
   @Column(name = "pro_status")
   private Integer proStatus;
@@ -47,6 +53,14 @@ public class Project {
   private Applicant applicant;
 
   public Project() {}
+
+  public List<Score> getScores() {
+    return scores;
+  }
+
+  public void setScores(List<Score> scores) {
+    this.scores = scores;
+  }
 
   public Integer getTime() {
     return time;

@@ -3,10 +3,12 @@ package com.xiaobao.pro_manage_sys;
 import com.xiaobao.pro_manage_sys.entity.Project;
 import com.xiaobao.pro_manage_sys.entity.user.Applicant;
 import com.xiaobao.pro_manage_sys.entity.user.Expert;
+import com.xiaobao.pro_manage_sys.entity.user.RepDept;
 import com.xiaobao.pro_manage_sys.repository.ProjectRepository;
 import com.xiaobao.pro_manage_sys.repository.user.ApplicantRepository;
 import com.xiaobao.pro_manage_sys.repository.user.ProManagerRepository;
 import com.xiaobao.pro_manage_sys.service.user.ExpertService;
+import com.xiaobao.pro_manage_sys.service.user.RepDeptService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -23,6 +25,8 @@ class ProManageSysApplicationTests implements Serializable {
   @Resource ProjectRepository projectRepository;
 
   @Resource ExpertService expertService;
+
+  @Resource RepDeptService repDeptService;
 
   @Test
   public void erviceTest() {
@@ -61,5 +65,12 @@ class ProManageSysApplicationTests implements Serializable {
     project.setApplicant(user);
     Project save1 = projectRepository.save(project);
     //        Applicant save = applicantRepository.save(user);
+  }
+
+  @Test
+  public void manyToMany() {
+    Project project = projectRepository.findById(10002).get();
+    Expert expert = expertService.findById(1);
+    RepDept byId = repDeptService.findById(1);
   }
 }
