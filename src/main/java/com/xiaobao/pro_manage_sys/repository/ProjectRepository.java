@@ -13,4 +13,7 @@ public interface ProjectRepository extends JpaRepository<Project, Integer> {
 
   @Query("select p from Project p where p.applicant=?2 and p.proStatus in ?1")
   List<Project> findByStatusAndApplicant(List<Integer> status, Applicant applicant);
+
+  @Query("select p from Project p where p.proStatus in ?1")
+  List<Project> findByStatus(List<Integer> status);
 }

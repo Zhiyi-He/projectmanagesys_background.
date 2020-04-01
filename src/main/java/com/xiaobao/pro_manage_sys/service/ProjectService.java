@@ -18,4 +18,6 @@ public interface ProjectService {
   List<Project> saveAll(List<Project> projects);
 
   List<Project> findByStatusAndApplicant(List<Integer> status, Applicant applicant);
+
+  List<Project> findByStatus(List<Integer> status);
 }

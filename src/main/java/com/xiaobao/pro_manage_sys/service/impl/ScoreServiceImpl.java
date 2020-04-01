@@ -1,5 +1,6 @@
 package com.xiaobao.pro_manage_sys.service.impl;
 
+import com.xiaobao.pro_manage_sys.entity.Project;
 import com.xiaobao.pro_manage_sys.entity.Score;
 import com.xiaobao.pro_manage_sys.entity.user.Expert;
 import com.xiaobao.pro_manage_sys.repository.ScoreRepository;
@@ -27,5 +28,16 @@ public class ScoreServiceImpl implements ScoreService {
   @Override
   public Score findById(Integer id) {
     return scoreRepository.findById(id).get();
+  }
+
+  @Override
+  public List<Score> findByProject(Project project) {
+    return scoreRepository.findByProject(project);
+  }
+
+  @Override
+  public Boolean deleteScores(List<Score> scores) {
+    scoreRepository.deleteInBatch(scores);
+    return true;
   }
 }

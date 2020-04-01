@@ -199,4 +199,14 @@ public class ApplicantController {
     data.put("projects", projects);
     return new Result(data, "", 20000);
   }
+
+  @GetMapping("/projects/{statusList}")
+  public Result getProjectsByStatus(@PathVariable List<Integer> statusList) {
+    data = new HashMap<>();
+
+    List<Project> projects = projectService.findByStatus(statusList);
+
+    data.put("projects", projects);
+    return new Result(data, "", 20000);
+  }
 }

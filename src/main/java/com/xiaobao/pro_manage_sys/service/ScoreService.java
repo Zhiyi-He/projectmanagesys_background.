@@ -1,5 +1,6 @@
 package com.xiaobao.pro_manage_sys.service;
 
+import com.xiaobao.pro_manage_sys.entity.Project;
 import com.xiaobao.pro_manage_sys.entity.Score;
 import com.xiaobao.pro_manage_sys.entity.user.Expert;
 
@@ -12,4 +13,8 @@ public interface ScoreService {
   Score save(Score score);
 
   Score findById(Integer id);
+
+  List<Score> findByProject(Project project);
+
+  Boolean deleteScores(List<Score> scores);
 }

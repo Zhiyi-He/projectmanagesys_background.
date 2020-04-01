@@ -44,4 +44,9 @@ public class ProjectServiceImpl implements ProjectService {
   public List<Project> findByStatusAndApplicant(List<Integer> status, Applicant applicant) {
     return projectRepository.findByStatusAndApplicant(status, applicant);
   }
+
+  @Override
+  public List<Project> findByStatus(List<Integer> status) {
+    return projectRepository.findByStatus(status);
+  }
 }

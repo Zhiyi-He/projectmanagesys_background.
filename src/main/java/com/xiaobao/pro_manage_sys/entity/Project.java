@@ -26,6 +26,9 @@ public class Project {
   @Column(name = "score")
   private Integer score;
 
+  @Column(name = "review_result")
+  private Integer reviewResult;
+
   @Column(name = "funds")
   private Integer funds;
 
@@ -34,7 +37,10 @@ public class Project {
 
   @Column(name = "subject")
   private String subject;
-  /** 项目申报状态：0---项目更新（唯一） 1---未通过 2---打回修改 3---初级审核 4---二级审核 5---三级审核 6---待分配专家 7---专家评审 8---已通过 */
+  /**
+   * 项目申报状态：0---项目更新（唯一） 1---未通过 2---打回修改 3---初级审核 4---二级审核 5---三级审核 6---待分配专家 7---专家评审 8---待审批
+   * 9---已通过
+   */
   @Column(name = "pro_status")
   private Integer proStatus;
 
@@ -53,6 +59,14 @@ public class Project {
   private Applicant applicant;
 
   public Project() {}
+
+  public Integer getReviewResult() {
+    return reviewResult;
+  }
+
+  public void setReviewResult(Integer reviewResult) {
+    this.reviewResult = reviewResult;
+  }
 
   public List<Score> getScores() {
     return scores;
