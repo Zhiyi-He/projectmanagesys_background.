@@ -9,12 +9,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class SysManagerServiceImpl implements SysManagerService {
 
-    @Autowired
-    UserRepository<SysManager> sysManagerUserRepository;
+  @Autowired UserRepository<SysManager> sysManagerUserRepository;
 
+  @Override
+  public SysManager findByUsernameAndPassword(String username, String password) {
+    return sysManagerUserRepository.findByUsernameAndPassword(username, password);
+  }
 
-    @Override
-    public SysManager findByUsernameAndPassword(String username, String password) {
-        return sysManagerUserRepository.findByUsernameAndPassword(username,password);
-    }
+  @Override
+  public SysManager save(SysManager user) {
+    return sysManagerUserRepository.save(user);
+  }
 }

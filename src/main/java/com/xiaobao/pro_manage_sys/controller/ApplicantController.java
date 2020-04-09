@@ -188,18 +188,6 @@ public class ApplicantController {
     }
   }
 
-  @PostMapping("/projects")
-  public Result getProjectsByStatus(@RequestBody Map<String, Object> map) throws Exception {
-    data = new HashMap<>();
-    Applicant applicant =
-        JsonXMLUtils.map2obj((Map<String, Object>) map.get("applicant"), Applicant.class);
-    List<Integer> status = (List<Integer>) map.get("status");
-    List<Project> projects = projectService.findByStatusAndApplicant(status, applicant);
-
-    data.put("projects", projects);
-    return new Result(data, "", 20000);
-  }
-
   @GetMapping("/projects/{statusList}")
   public Result getProjectsByStatus(@PathVariable List<Integer> statusList) {
     data = new HashMap<>();
