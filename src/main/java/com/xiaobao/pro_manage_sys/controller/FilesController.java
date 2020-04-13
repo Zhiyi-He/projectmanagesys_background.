@@ -1,7 +1,9 @@
 package com.xiaobao.pro_manage_sys.controller;
 
 import com.xiaobao.pro_manage_sys.entity.LocalFile;
+import com.xiaobao.pro_manage_sys.entity.Project;
 import com.xiaobao.pro_manage_sys.service.FileService;
+import com.xiaobao.pro_manage_sys.service.ProjectService;
 import com.xiaobao.pro_manage_sys.util.FileUtil;
 import com.xiaobao.pro_manage_sys.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.websocket.server.PathParam;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +21,7 @@ import java.util.Map;
 public class FilesController {
 
   @Autowired FileService fileService;
+  @Autowired ProjectService projectService;
 
   Map<String, Object> data;
 
@@ -47,13 +49,11 @@ public class FilesController {
   }
 
   @GetMapping("/download")
-  public Result downLoad(
-      @PathParam("filename") String filename,
-      @PathParam("parentPath") String parentPath,
-      HttpServletResponse response)
+  public Result downLoad(@RequestParam("path") String path, HttpServletResponse response)
       throws IOException {
     data = new HashMap<>();
-    Boolean flag = FileUtil.downloadFile(parentPath, filename, response);
+    Boolean flag = FileUtil.downloadFile(path, response);
+
     if (!flag) {
       return new Result(data, "下载成功", 20000);
     } else {
@@ -65,29 +65,33 @@ public class FilesController {
   public Result upload(
       @RequestParam("files") MultipartFile[] files,
       @RequestParam(name = "title", required = false) String title,
-      @RequestParam(name = "fileType", required = false) Integer fileType)
+      @RequestParam(name = "fileType", required = false) Integer fileType,
+      @RequestParam(name = "proId", required = false) Integer proId)
       throws IOException {
     data = new HashMap<>();
     LocalFile[] localFiles = new LocalFile[files.length];
     String lastPath = "";
+    Project project = null;
 
-    switch (fileType) {
-      case 0:
-        lastPath = "notice";
-        break;
-      case 1:
-        lastPath = "manual";
-        break;
-      default:
-        lastPath = "project";
-        break;
+    if (fileType == null) {
+      lastPath = "project/" + proId;
+      project = projectService.findById(proId);
+    } else {
+      switch (fileType) {
+        case 0:
+          lastPath = "notice";
+          break;
+        case 1:
+          lastPath = "manual";
+          break;
+      }
     }
 
     for (int i = 0; i < files.length; i++) {
       LocalFile localFile = FileUtil.uploadFile(files[i], title, lastPath);
       if (localFile != null) {
-        localFile.setTitle(title);
         localFile.setFileType(fileType);
+        localFile.setProject(project);
         localFiles[i] = fileService.save(localFile);
       }
     }

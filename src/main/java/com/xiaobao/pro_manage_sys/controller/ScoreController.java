@@ -2,7 +2,9 @@ package com.xiaobao.pro_manage_sys.controller;
 
 import com.xiaobao.pro_manage_sys.entity.Project;
 import com.xiaobao.pro_manage_sys.entity.Score;
+import com.xiaobao.pro_manage_sys.entity.user.Expert;
 import com.xiaobao.pro_manage_sys.service.ScoreService;
+import com.xiaobao.pro_manage_sys.util.JsonXMLUtils;
 import com.xiaobao.pro_manage_sys.util.Result;
 import com.xiaobao.pro_manage_sys.util.UpdateUtil;
 import org.springframework.beans.BeanUtils;
@@ -21,6 +23,23 @@ public class ScoreController {
 
   @Autowired ScoreService scoreService;
 
+  @PostMapping("/score")
+  public Result addScore(@RequestBody Map<String, Object> map) throws Exception {
+    data = new HashMap<>();
+
+    Project project = JsonXMLUtils.map2obj((Map<String, Object>) map.get("project"), Project.class);
+    Expert expert = JsonXMLUtils.map2obj((Map<String, Object>) map.get("expert"), Expert.class);
+
+    Score addResult = scoreService.save(new Score(project, expert));
+
+    if (addResult != null) {
+      data.put("addResult", addResult);
+      return new Result(data, "分配专家成功", 20000);
+    } else {
+      return new Result(data, "分配专家失败", 40000);
+    }
+  }
+
   @PutMapping("/score")
   public Result updateScore(@RequestBody Score score) {
     data = new HashMap<>();
@@ -37,7 +56,7 @@ public class ScoreController {
     }
   }
 
-  @PostMapping("/score")
+  @PostMapping("/scores")
   public Result getScoresByProject(@RequestBody Project project) {
     data = new HashMap<>();
 

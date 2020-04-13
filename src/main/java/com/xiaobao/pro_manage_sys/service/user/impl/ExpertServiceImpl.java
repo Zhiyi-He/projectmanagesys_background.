@@ -35,6 +35,11 @@ public class ExpertServiceImpl implements ExpertService {
   }
 
   @Override
+  public List<Expert> saveAll(List<Expert> experts) {
+    return expertUserRepository.saveAll(experts);
+  }
+
+  @Override
   public Expert findByUsernameAndPassword(String username, String password) {
     return expertUserRepository.findByUsernameAndPassword(username, password);
   }

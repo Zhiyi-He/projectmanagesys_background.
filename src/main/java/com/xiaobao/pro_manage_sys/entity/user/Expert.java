@@ -32,6 +32,9 @@ public class Expert {
   @Column(name = "id_card")
   private String idCard;
 
+  @Column(name = "pro_num")
+  private Integer proNum;
+
   @Column(name = "sex")
   private Integer sex;
 
@@ -67,6 +70,14 @@ public class Expert {
   public Expert(String username, String password) {
     this.username = username;
     this.password = password;
+  }
+
+  public Integer getProNum() {
+    return proNum;
+  }
+
+  public void setProNum(Integer proNum) {
+    this.proNum = proNum;
   }
 
   public List<Score> getScores() {

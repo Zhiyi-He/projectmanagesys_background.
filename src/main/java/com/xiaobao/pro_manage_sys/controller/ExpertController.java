@@ -87,13 +87,13 @@ public class ExpertController {
   }
 
   @PutMapping("/expert")
-  public Result updateExpert(@RequestBody Expert expert) {
+  public Result updateExperts(@RequestBody List<Expert> experts) {
     data = new HashMap<>();
 
-    Expert updateUser = expertService.save(expert);
+    List<Expert> updateResult = expertService.saveAll(experts);
 
-    if (updateUser != null) {
-      data.put("updateUser", updateUser);
+    if (updateResult != null) {
+      data.put("updateResult", updateResult);
       return new Result(data, "修改用户信息成功", 20000);
     } else {
       return new Result(data, "修改用户信息失败", 40000);

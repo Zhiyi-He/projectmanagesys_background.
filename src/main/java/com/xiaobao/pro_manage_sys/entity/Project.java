@@ -1,11 +1,14 @@
 package com.xiaobao.pro_manage_sys.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.xiaobao.pro_manage_sys.entity.user.Applicant;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "project")
@@ -58,7 +61,19 @@ public class Project {
   //  @JsonIgnore
   private Applicant applicant;
 
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "project", cascade = CascadeType.ALL)
+  @JsonManagedReference
+  private Set<LocalFile> files = new HashSet<>(0);
+
   public Project() {}
+
+  public Set<LocalFile> getFiles() {
+    return files;
+  }
+
+  public void setFiles(Set<LocalFile> files) {
+    this.files = files;
+  }
 
   public Integer getReviewResult() {
     return reviewResult;

@@ -1,5 +1,7 @@
 package com.xiaobao.pro_manage_sys.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -14,8 +16,8 @@ public class LocalFile {
   @Column(name = "old_file_name")
   private String oldFileName;
 
-  @Column(name = "new_file_name")
-  private String newFileName;
+  @Column(name = "name")
+  private String name;
 
   @Column(name = "title")
   private String title;
@@ -38,23 +40,38 @@ public class LocalFile {
   @Column(name = "path")
   private String path;
 
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+  @JoinColumn(name = "pro_id")
+  @JsonBackReference
+  private Project project;
+
   public LocalFile() {}
 
   public LocalFile(
       String oldFileName,
-      String newFileName,
+      String name,
+      String title,
       String ext,
       long size,
       String type,
       String date,
       String path) {
     this.oldFileName = oldFileName;
-    this.newFileName = newFileName;
+    this.name = name;
+    this.title = title;
     this.ext = ext;
     this.size = size;
     this.type = type;
     this.date = date;
     this.path = path;
+  }
+
+  public Project getProject() {
+    return project;
+  }
+
+  public void setProject(Project project) {
+    this.project = project;
   }
 
   public int getId() {
@@ -97,12 +114,12 @@ public class LocalFile {
     this.oldFileName = oldFileName;
   }
 
-  public String getNewFileName() {
-    return newFileName;
+  public String getName() {
+    return name;
   }
 
-  public void setNewFileName(String newFileName) {
-    this.newFileName = newFileName;
+  public void setName(String name) {
+    this.name = name;
   }
 
   public String getExt() {

@@ -13,11 +13,10 @@ import java.util.List;
 
 public class FileUtil {
 
-  public static Boolean downloadFile(
-      String parentPath, String filename, HttpServletResponse response) throws IOException {
-    String filePath = ResourceUtils.getURL("classpath:").getPath() + "/static/files";
+  public static Boolean downloadFile(String path, HttpServletResponse response) throws IOException {
     File file = null;
-    file = new File(filePath + "/" + parentPath + "/" + filename);
+    file = new File(path);
+    String filename = path.substring(path.lastIndexOf("/") + 1);
     if (file.exists()) { // 判断文件父目录是否存在
       response.setContentType("application/msword;charset=UTF-8");
       response.setCharacterEncoding("UTF-8");
@@ -64,7 +63,10 @@ public class FileUtil {
     String suffix = oldFileName.substring(oldFileName.lastIndexOf("."));
     //    // 使用UUID拼接后缀，定义一个不重复的文件名
     //    String finalName = UUID.randomUUID() + suffix;
-    String newFileName = title + suffix;
+    if (title == null) {
+      title = oldFileName.substring(0, oldFileName.lastIndexOf("."));
+    }
+    String name = title + suffix;
 
     String dateFormat = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
@@ -73,16 +75,17 @@ public class FileUtil {
 
     try {
       if (!dest.exists()) dest.mkdirs();
-      file.transferTo(new File(dest, newFileName));
+      file.transferTo(new File(dest, name));
       localFile =
           new LocalFile(
               oldFileName,
-              newFileName,
+              name,
+              title,
               suffix,
               file.getSize(),
               file.getContentType(),
               dateFormat,
-              realPath + '/' + newFileName);
+              realPath + '/' + name);
     } catch (Exception e) {
       e.printStackTrace();
     }

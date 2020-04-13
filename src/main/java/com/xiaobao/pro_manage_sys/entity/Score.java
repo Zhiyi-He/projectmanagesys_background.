@@ -26,6 +26,13 @@ public class Score {
   @JsonBackReference
   private Expert expert;
 
+  public Score(Project project, Expert expert) {
+    this.project = project;
+    this.expert = expert;
+  }
+
+  public Score() {}
+
   public Integer getId() {
     return id;
   }
