@@ -1,6 +1,5 @@
 package com.xiaobao.pro_manage_sys.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.xiaobao.pro_manage_sys.entity.user.Applicant;
 
@@ -15,7 +14,7 @@ import java.util.Set;
 public class Project {
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "project", cascade = CascadeType.ALL)
-  @JsonIgnore
+  @JsonManagedReference
   List<Score> scores = new ArrayList<>(0);
 
   @Id

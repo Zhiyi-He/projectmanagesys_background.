@@ -20,4 +20,6 @@ public interface ApplicantService {
   public Applicant findById(Integer id);
 
   Boolean deleteInBatch(List<Applicant> applicants);
+
+  List<String> findNamesByRpdNames(List<String> rpdNames);
 }

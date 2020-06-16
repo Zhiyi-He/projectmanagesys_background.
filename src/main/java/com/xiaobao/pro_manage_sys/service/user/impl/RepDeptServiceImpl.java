@@ -30,6 +30,11 @@ public class RepDeptServiceImpl implements RepDeptService {
   }
 
   @Override
+  public List<String> findNamesByRcdNames(List<String> rcdNames) {
+    return repDeptRepository.findNamesByRcdNames(rcdNames);
+  }
+
+  @Override
   public List<RepDept> findByRpdStatus(Integer status) {
     return repDeptRepository.findByRpdStatus(status);
   }

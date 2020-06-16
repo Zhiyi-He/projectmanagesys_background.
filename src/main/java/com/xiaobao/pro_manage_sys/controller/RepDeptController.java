@@ -128,4 +128,18 @@ public class RepDeptController {
       return new Result(data, "获取用户列表失败", 40000);
     }
   }
+
+  @PostMapping("/rpdNames")
+  public Result getRpdNames(@RequestBody List<String> rcdNames) {
+    data = new HashMap<>();
+
+    List<String> rpdNames = repDeptService.findNamesByRcdNames(rcdNames);
+
+    if (rpdNames != null) {
+      data.put("rpdNames", rpdNames);
+      return new Result(data, "获取单位名称成功", 20000);
+    } else {
+      return new Result(data, "获取单位名称失败", 40000);
+    }
+  }
 }

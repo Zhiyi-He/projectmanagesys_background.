@@ -1,6 +1,6 @@
 package com.xiaobao.pro_manage_sys.entity.user;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.xiaobao.pro_manage_sys.entity.Score;
 
 import javax.persistence.*;
@@ -12,7 +12,7 @@ import java.util.List;
 public class Expert {
 
   @OneToMany(fetch = FetchType.LAZY, mappedBy = "expert", cascade = CascadeType.ALL)
-  @JsonManagedReference
+  @JsonIgnore
   List<Score> scores = new ArrayList<>(0);
 
   @Id
@@ -44,6 +44,9 @@ public class Expert {
   @Column(name = "folk")
   private String folk;
 
+  @Column(name = "school")
+  private String school;
+
   @Column(name = "edu")
   private String edu;
 
@@ -70,6 +73,14 @@ public class Expert {
   public Expert(String username, String password) {
     this.username = username;
     this.password = password;
+  }
+
+  public String getSchool() {
+    return school;
+  }
+
+  public void setSchool(String school) {
+    this.school = school;
   }
 
   public Integer getProNum() {

@@ -11,7 +11,7 @@
     <groupId>com.xiaobao</groupId>
     <artifactId>pro_manage_sys</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>pro_manage_sys</name>
     <description>Demo project for Spring Boot</description>
 
@@ -99,6 +99,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
+
     </build>
 
 </project>

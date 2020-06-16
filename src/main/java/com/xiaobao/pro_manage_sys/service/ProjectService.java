@@ -1,7 +1,8 @@
 package com.xiaobao.pro_manage_sys.service;
 
 import com.xiaobao.pro_manage_sys.entity.Project;
-import com.xiaobao.pro_manage_sys.entity.user.Applicant;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 
@@ -11,13 +12,23 @@ public interface ProjectService {
 
   public Project findById(Integer id);
 
-  List<Project> findByProStatusAndApplicant(Integer proStatus, Applicant applicant);
-
   Boolean deleteById(Integer id);
 
   List<Project> saveAll(List<Project> projects);
 
-  List<Project> findByStatusAndApplicant(List<Integer> status, Applicant applicant);
+  List<Project> findByUserId(
+      String userType, Integer id, List<Integer> status, String proName, PageRequest pageRequest);
 
-  List<Project> findByStatus(List<Integer> status);
+  Page<Project> findByPage(
+      String userType,
+      Integer id,
+      List<Integer> status,
+      String proName,
+      Boolean isScore,
+      List<String> proTypes,
+      List<String> subjects,
+      List<String> appNames,
+      List<String> rpdNames,
+      List<String> rcdNames,
+      PageRequest pageRequest);
 }

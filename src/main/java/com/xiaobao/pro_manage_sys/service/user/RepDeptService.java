@@ -24,4 +24,6 @@ public interface RepDeptService {
   List<RepDept> findByRpdStatus(Integer status);
 
   List<RepDept> saveAll(List<RepDept> repDepts);
+
+  List<String> findNamesByRcdNames(List<String> rcdNames);
 }

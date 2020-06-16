@@ -13,4 +13,7 @@ public interface RepDeptRepository extends UserRepository<RepDept> {
   UserVo findUserVoByUsernameAndPassword(String username, String password);
 
   List<RepDept> findByRpdStatus(Integer status);
+
+  @Query("select deptName from RepDept where recDept.deptName in ?1")
+  List<String> findNamesByRcdNames(List<String> rcdNames);
 }

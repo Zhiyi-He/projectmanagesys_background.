@@ -33,4 +33,9 @@ public class ApplicantServiceImpl implements ApplicantService {
     applicantRepository.deleteInBatch(applicants);
     return true;
   }
+
+  @Override
+  public List<String> findNamesByRpdNames(List<String> rpdNames) {
+    return applicantRepository.findNamesByRpdNames(rpdNames);
+  }
 }

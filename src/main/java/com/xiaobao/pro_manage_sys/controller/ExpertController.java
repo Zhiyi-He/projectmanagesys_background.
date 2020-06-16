@@ -101,10 +101,10 @@ public class ExpertController {
   }
 
   @GetMapping("/experts")
-  public Result getExperts() {
+  public Result getExperts(@RequestParam(name = "expertNum", required = false) Integer expertNum) {
     data = new HashMap<>();
 
-    List<Expert> experts = expertService.findAll();
+    List<Expert> experts = expertService.findLimitNum(expertNum);
 
     if (experts != null) {
       data.put("experts", experts);

@@ -6,14 +6,13 @@ import com.xiaobao.pro_manage_sys.service.ProjectService;
 import com.xiaobao.pro_manage_sys.service.user.ApplicantService;
 import com.xiaobao.pro_manage_sys.util.JsonXMLUtils;
 import com.xiaobao.pro_manage_sys.util.Result;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 @RequestMapping("/applicant")
@@ -102,6 +101,20 @@ public class ApplicantController {
     }
   }
 
+  @PostMapping("/appNames")
+  public Result getAppNames(@RequestBody List<String> rpdNames) {
+    data = new HashMap<>();
+
+    List<String> appNames = applicantService.findNamesByRpdNames(rpdNames);
+
+    if (appNames != null) {
+      data.put("appNames", appNames);
+      return new Result(data, "获取申报人姓名成功", 20000);
+    } else {
+      return new Result(data, "获取申报人姓名失败", 40000);
+    }
+  }
+
   @PutMapping("/appInfo")
   public Result updateAppInfo(@RequestBody Applicant applicant) {
     data = new HashMap<>();
@@ -113,28 +126,6 @@ public class ApplicantController {
       return new Result(data, "修改用户信息成功", 20000);
     } else {
       return new Result(data, "修改用户信息失败", 40000);
-    }
-  }
-
-  @GetMapping("/proList/{id}")
-  public Result getProList(@PathVariable Integer id) {
-    data = new HashMap<>();
-
-    Applicant user = applicantService.findById(id);
-    Set<Project> proList = user.getProList();
-
-    for (Project project : proList) {
-      if (project.getProStatus() == 0) {
-        proList.remove(project);
-        break;
-      }
-    }
-
-    if (proList != null) {
-      data.put("proList", user.getProList());
-      return new Result(data, "获取项目列表成功", 20000);
-    } else {
-      return new Result(data, "获取项目列表失败", 40000);
     }
   }
 
@@ -188,13 +179,84 @@ public class ApplicantController {
     }
   }
 
-  @GetMapping("/projects/{statusList}")
-  public Result getProjectsByStatus(@PathVariable List<Integer> statusList) {
+  @GetMapping("/projects")
+  public Result getProjects(
+      @RequestParam(name = "userType", required = false) String userType,
+      @RequestParam(name = "userId", required = false) Integer userId,
+      @RequestParam(name = "proName", required = false) String proName,
+      @RequestParam(name = "statusStr", required = false) String statusStr,
+      @RequestParam(name = "isScore", required = false) Boolean isScore,
+      @RequestParam(name = "proTypesStr", required = false) String proTypesStr,
+      @RequestParam(name = "subjectsStr", required = false) String subjectsStr,
+      @RequestParam(name = "appNamesStr", required = false) String appNamesStr,
+      @RequestParam(name = "rpdNamesStr", required = false) String rpdNamesStr,
+      @RequestParam(name = "rcdNamesStr", required = false) String rcdNamesStr,
+      @RequestParam(name = "pageNum", required = false) Integer pageNum,
+      @RequestParam(name = "pageSize", required = false) Integer pageSize) {
     data = new HashMap<>();
+    List<Integer> status = null;
+    List<String> proTypes = null;
+    List<String> subjects = null;
+    List<String> appNames = null;
+    List<String> rpdNames = null;
+    List<String> rcdNames = null;
+    PageRequest pageRequest = null;
 
-    List<Project> projects = projectService.findByStatus(statusList);
+    if (statusStr != null && statusStr != "") {
+      status = new ArrayList<>();
+      String[] s = statusStr.split(",");
+      for (int i = 0; i < s.length; i++) {
+        status.add(Integer.parseInt(s[i]));
+      }
+    } else {
+      status = Arrays.asList(new Integer[] {1, 2, 3, 4, 5, 6, 7, 8, 9});
+    }
 
-    data.put("projects", projects);
+    if (proTypesStr != null && proTypesStr != "") {
+      proTypes = Arrays.asList(proTypesStr.split(","));
+    }
+
+    if (subjectsStr != null && subjectsStr != "") {
+      subjects = Arrays.asList(subjectsStr.split(","));
+    }
+
+    if (appNamesStr != null && appNamesStr != "") {
+      appNames = Arrays.asList(appNamesStr.split(","));
+    }
+
+    if (rpdNamesStr != null && rpdNamesStr != "") {
+      rpdNames = Arrays.asList(rpdNamesStr.split(","));
+    }
+
+    if (rcdNamesStr != null && rcdNamesStr != "") {
+      rcdNames = Arrays.asList(rcdNamesStr.split(","));
+    }
+
+    if (pageNum != null && pageSize != null) {
+      pageRequest = PageRequest.of(pageNum - 1, pageSize);
+    } else {
+      pageRequest = PageRequest.of(0, 5);
+    }
+
+    //    List<Project> projects =
+    //        projectService.findByPage(userType, userId, status, proName, appNames, pageRequest,
+    // total);
+    Page<Project> projectPage =
+        projectService.findByPage(
+            userType,
+            userId,
+            status,
+            proName,
+            isScore,
+            proTypes,
+            subjects,
+            appNames,
+            rpdNames,
+            rcdNames,
+            pageRequest);
+
+    data.put("projects", projectPage.getContent());
+    data.put("total", projectPage.getTotalElements());
     return new Result(data, "", 20000);
   }
 }

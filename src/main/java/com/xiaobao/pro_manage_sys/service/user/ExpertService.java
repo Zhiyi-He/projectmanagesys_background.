@@ -24,4 +24,6 @@ public interface ExpertService {
   Expert findById(Integer id);
 
   List<Expert> saveAll(List<Expert> experts);
+
+  List<Expert> findLimitNum(Integer expertNum);
 }

@@ -6,7 +6,7 @@ import com.xiaobao.pro_manage_sys.entity.user.Expert;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "project_expert")
+@Table(name = "score")
 public class Score {
 
   @Id
@@ -17,13 +17,13 @@ public class Score {
   @Column(name = "score")
   private int score;
 
-  @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
   @JoinColumn(name = "pro_id")
+  @JsonBackReference
   private Project project;
 
-  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+  @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
   @JoinColumn(name = "exp_id")
-  @JsonBackReference
   private Expert expert;
 
   public Score(Project project, Expert expert) {

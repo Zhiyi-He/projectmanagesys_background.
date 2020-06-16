@@ -1,7 +1,6 @@
 package com.xiaobao.pro_manage_sys.util;
 
 import com.xiaobao.pro_manage_sys.entity.LocalFile;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -70,7 +69,10 @@ public class FileUtil {
 
     String dateFormat = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 
-    String realPath = ResourceUtils.getURL("classpath:").getPath() + "/static/files/" + lastPath;
+    //    String realPath = ResourceUtils.getURL("classpath:").getPath() + "/static/files/" +
+    // lastPath;
+    String realPath =
+        "/F:/xiaobao/dazhu/IDEA/pro_manage_sys/target/classes//static/files/" + lastPath;
     File dest = new File(realPath);
 
     try {
